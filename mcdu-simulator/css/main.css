@@ -1,0 +1,766 @@
+:root{
+  --mcdu-scale: 1;  /* 👈 change zoom in/out */
+}
+
+body {
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.mcdu-wrap{
+  transform: scale(var(--mcdu-scale));
+  transform-origin: top center;  /* zoom start from top */
+}
+
+
+.mcdu {
+  position: relative;
+  width: 420px;
+  height: 700px;
+
+  /* ✅ RAL 7031 (Blue Grey) */
+  background: linear-gradient(to bottom,
+      #4E5B61,
+      #3F4B51);
+
+  border-radius: 18px;
+  padding: 20px;
+}
+
+
+/* Screen */
+.screen {
+  position: absolute;
+  top: 71px;
+  left: 72px;
+  width: 290px;
+  height: 233px;
+
+  background: radial-gradient(ellipse at center,
+      #000000 0%,
+      #000000 70%,
+      #000000 100%);
+
+  border-radius: 6px;
+  padding: 12px;
+
+  box-shadow:
+    inset 0 0 18px rgba(0, 255, 150, 0.15),
+    0 0 8px rgba(0, 0, 0, 0.9);
+}
+
+
+
+.screen-content {
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.3;
+
+  color: #00ff8a;
+
+  text-shadow:
+    0 0 4px rgba(0, 255, 140, 0.8),
+    0 0 10px rgba(0, 255, 140, 0.4);
+}
+
+.lcd-amber {
+  color: #ffb000;
+
+  text-shadow:
+    0 0 4px rgba(255, 176, 0, 0.8),
+    0 0 10px rgba(255, 176, 0, 0.4);
+}
+
+.screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+
+  pointer-events: none;
+}
+
+
+/* LSK buttons */
+.lsk {
+  position: absolute;
+  top: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.lsk.left {
+  left: 8px;
+}
+
+.lsk.right {
+  left: 415px;
+}
+
+.lsk button {
+  width: 36px;
+  height: 18px;
+  border-radius: 6px;
+  font-size: 0px;
+  line-height: 1.1;
+  /* 👈 line spacing control */
+  font-weight: 600;
+  text-align: center;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.lsk button::before {
+  content: "";
+  width: 16px;        /* 👈 yaha se line lambi/ chhoti karo */
+  height: 2px;        /* line thickness */
+  background: #e6e6e6;
+  border-radius: 2px;
+  display: block;
+}
+
+/* ===== LEFT LSK diagonal line ===== */
+.lsk.left button::after {
+  content: "";
+  position: absolute;
+
+  /* line size */
+  width: 26px;
+  height: 2px;
+
+  /* line color */
+  background: #cfd6dd;
+
+
+  right: -31px;
+  top: 79%;
+
+
+  transform: translateY(-50%) rotate(20deg);
+
+
+  opacity: 0.8;
+}
+
+/* ===== RIGHT LSK diagonal line ===== */
+.lsk.right button::after {
+  content: "";
+  position: absolute;
+
+  width: 26px;
+  height: 2px;
+
+  background: #cfd6dd;
+
+  left: -31px;
+  top: 79%;
+
+  transform: translateY(-50%) rotate(-20deg);
+  opacity: 0.8;
+}
+
+
+
+/* ===== A–Z keypad exact lock ===== */
+.alpha-keypad {
+  position: absolute;
+
+  /* 🔥 REAL MCDU ke approx coordinates */
+  top: 444px;
+  left: 169px;
+
+  width: 240px;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 37px;
+
+  gap: 10px;
+
+  /* safety */
+  z-index: 5;
+}
+
+.alpha-keypad button {
+  width: 90%;
+  height: 34px;
+  border-radius: 6px;
+  font-size: 15px;
+  line-height: 1.1;
+  font-weight: 600;
+  text-align: center;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 🔥 1st, 2nd, 3rd, 4th, 5th column ko thoda right shift */
+.alpha-keypad button:nth-child(5n + 1) {
+  transform: translateX(16px);
+}
+
+.alpha-keypad button:nth-child(5n + 2) {
+  transform: translateX(12px);
+}
+
+.alpha-keypad button:nth-child(5n + 3) {
+  transform: translateX(8px);
+}
+
+.alpha-keypad button:nth-child(5n + 4) {
+  transform: translateX(5px);
+}
+
+.alpha-keypad button:nth-child(5n + 5) {
+  transform: translateX(0px);
+}
+
+/* ===== Number keypad exact placement ===== */
+.number-pad {
+  position: absolute;
+
+  /* 🔥 Reference image ke approx coordinates */
+  top: 554px;
+  left: 45px;
+
+  width: 150px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 36px);
+  grid-auto-rows: 32px;
+
+  gap: 10px;
+
+  z-index: 5;
+}
+
+.number-pad button {
+  width: 33px;
+  height: 34px;
+  font-size: 15px;
+  /* 👈 text chhota */
+  line-height: 1.1;
+  /* 👈 line spacing control */
+  font-weight: 600;
+  text-align: center;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e6e9ec;
+}
+
+.arrows {
+  position: absolute;
+
+  /* 🔥 Reference image ke approx coordinates */
+  top: 468px;
+  left: 40px;
+
+  width: 150px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 43px);
+  grid-auto-rows: 26px;
+
+  gap: 12px;
+
+  z-index: 5;
+}
+
+.arrows button {
+  width: 52px;
+  height: 28px;
+  border-radius: 6px;
+  font-size: 20px;
+  line-height: 1.1;
+  font-weight: 600;
+  text-align: center;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.function-keys {
+  position: absolute;
+
+  /* 🔥 Reference image ke approx coordinates */
+  top: 350px;
+  left: 43px;
+
+  width: 150px;
+
+  display: grid;
+  grid-template-columns: repeat(6, 43px);
+  grid-auto-rows: 26px;
+
+  gap: 12px;
+
+  z-index: 5;
+}
+
+.function-keys button {
+  width: 50px;
+  height: 33px;
+  border-radius: 6px;
+  font-size: 10px;
+  line-height: 1.1;
+  font-weight: 600;
+  text-align: center;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+}
+
+.dim {
+  position: absolute;
+
+  /* 🔥 Reference image ke approx coordinates */
+  top: 363px;
+  left: 378px;
+
+  width: 150px;
+
+  display: grid;
+  grid-template-columns: repeat(1, 43px);
+  grid-auto-rows: 12px;
+
+  gap: 12px;
+
+  z-index: 5;
+}
+
+.dim button {
+  width: 39px;
+  height: 25px;
+  border-radius: 6px;
+  font-size: 10px;
+  line-height: 1.1;
+  font-weight: 600;
+  text-align: center;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp {
+  position: absolute;
+  top: 679px;
+  left: 230px;
+
+  width: 150px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 43px);
+  grid-auto-rows: 12px;
+
+  gap: 4px;
+
+  z-index: 5;
+}
+
+.sp button {
+  width: 90%;
+  height: 34px;
+  font-size: 15px;
+  line-height: 1.1;
+  font-weight: 600;
+  text-align: center;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.special-keys {
+  position: absolute;
+  top: 679px;
+  left: 322px;
+
+  width: 150px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 43px);
+  grid-auto-rows: 12px;
+
+  gap: 4px;
+
+  z-index: 5;
+}
+
+.special-keys button {
+  width: 90%;
+  height: 34px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.1;
+  font-weight: 600;
+  text-align: center;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.number-pad button {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+}
+
+.sp button,
+.special-keys button {
+  border-radius: 6px;
+}
+
+
+
+button:active {
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.6),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.alpha-keypad button,
+.function-keys button,
+.sp button,
+.special-keys button {
+  border-radius: 6px;
+}
+
+.number-pad button {
+  border-radius: 50%;
+  /* number buttons = circular */
+}
+
+button:hover {
+  filter: brightness(1.05);
+}
+
+/* ===============================
+   REAL AIRCRAFT RUBBER BUTTON
+   =============================== */
+button {
+  border: none;
+  outline: none;
+
+  background: linear-gradient(to bottom,
+      #151414 0%,
+      /* top light */
+      #1c1e20 100%
+      /* bottom dark */
+    );
+
+  color: #e6e6e6;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    /* top highlight */
+    inset 0 -3px 5px rgba(0, 0, 0, 0.9),
+    /* deep rubber */
+    0 2px 3px rgba(0, 0, 0, 0.8);
+  /* outer shadow */
+
+  cursor: pointer;
+}
+
+.lsk button {
+  filter: brightness(0.85);
+}
+
+.arrows button {
+  filter: brightness(0.9);
+}
+
+.number-pad button {
+  filter: brightness(0.95);
+}
+
+.screw {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+
+  background: radial-gradient(circle at 30% 30%,
+      #cfd3d6,
+      #6b7176 60%,
+      #2f3336 100%);
+
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.6),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+/* screw slot */
+.screw::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 3px;
+  width: 12px;
+  height: 2px;
+  background: #1a1d1f;
+  border-radius: 2px;
+}
+
+/* positions */
+.screw.tl {
+  top: 12px;
+  left: 12px;
+}
+
+.screw.tr {
+  top: 12px;
+  right: 12px;
+}
+
+.screw.bl {
+  bottom: 12px;
+  left: 12px;
+}
+
+.screw.br {
+  bottom: 12px;
+  right: 12px;
+}
+
+.panel-holes {
+  position: absolute;
+  top: 9px;
+  left: 101px;
+  display: flex;
+  gap: 10px;
+}
+
+.panel-holes span {
+  width: 44px;
+  height: 15px;
+  border-radius: 19px;
+
+  background: linear-gradient(to bottom,
+      #1b1f22,
+      #000);
+
+  box-shadow:
+    inset 0 2px 3px rgba(0, 0, 0, 0.9),
+    0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.rubber1 {
+  position: absolute;
+  top: 490px;
+  left: 9px;
+  display: flex;
+  gap: 10px;
+}
+
+.rubber1 span {
+  width: 20px;
+  height: 150px;
+  border-radius: 19px;
+
+  background: linear-gradient(to bottom,
+      #26292c,
+      #282525);
+
+  box-shadow:
+    inset 0 2px 3px rgba(40, 37, 37, 0.9),
+    0 1px 0 rgba(29, 27, 27, 0.15);
+}
+
+.rubber2 {
+  position: absolute;
+  top: 490px;
+  left: 430px;
+  display: flex;
+  gap: 10px;
+}
+
+.rubber2 span {
+  width: 20px;
+  height: 150px;
+  border-radius: 19px;
+
+  background: linear-gradient(to bottom,
+      #26292c,
+      #282525);
+
+  box-shadow:
+    inset 0 2px 3px rgba(40, 37, 37, 0.9),
+    0 1px 0 rgba(29, 27, 27, 0.15);
+}
+
+
+/* ===============================
+   MCDU BLINKING CURSOR
+   =============================== */
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+
+  color: #00ff8a;
+
+  text-shadow:
+    0 0 4px rgba(0, 255, 140, 0.9),
+    0 0 8px rgba(0, 255, 140, 0.6);
+}
+
+/* blink animation */
+@keyframes mcdu-blink {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.cursor {
+  animation: mcdu-blink 1s steps(1) infinite;
+}
+
+
+/* ===============================
+   REAL AIRBUS SCRATCHPAD
+   =============================== */
+.scratchpad-line {
+  position: absolute;
+  bottom: 8px;
+  left: 10px;
+
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+
+  color: #00ff8a;
+  text-shadow:
+    0 0 4px rgba(0, 255, 140, 0.8),
+    0 0 8px rgba(0, 255, 140, 0.4);
+}
+
+.scratchpad-text {
+  white-space: pre;
+}
+/* ===============================
+   EXTERNAL NIGHT TOGGLE BUTTON
+   =============================== */
+.external-night-btn{
+  position: fixed;
+  right: 200px;
+  top: -45px;
+
+  width: 90px;
+  height: 40px;
+
+  border-radius: 10px;
+  border: 2px solid rgba(255,255,255,0.2);
+
+  background: linear-gradient(to bottom,#3c4045,#1c1f23);
+  color: #d9d9d9;
+
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,0.15),
+    inset 0 -3px 6px rgba(0,0,0,0.9),
+    0 6px 14px rgba(0,0,0,0.65);
+}
+
+/* ON state glow */
+.external-night-btn.active{
+  color: #ffcc55;
+
+  text-shadow:
+    0 0 6px rgba(255,200,80,0.8),
+    0 0 12px rgba(255,200,80,0.5);
+
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,0.25),
+    inset 0 -3px 6px rgba(0,0,0,0.9),
+    0 0 12px rgba(255,200,80,0.45),
+    0 6px 14px rgba(0,0,0,0.65);
+}
+
+/* ===============================
+   NIGHT MODE (REAL FEEL)
+   =============================== */
+.mcdu.night-mode{
+  filter: brightness(0.55) contrast(1.15);
+}
+
+/* Button backlight effect (only text glow) */
+.mcdu.night-mode button{
+  color: #ffcc55;
+
+  text-shadow:
+    0 0 6px rgba(255,200,80,0.8),
+    0 0 12px rgba(255,200,80,0.35);
+}
+
+/* Keep rubber button body dark (only text lights) */
+.mcdu.night-mode button{
+  background: linear-gradient(to bottom,#2b2f33,#141619);
+}
+/* ===============================
+   NIGHT MODE: LSK DIAGONAL LINES YELLOW
+   =============================== */
+.mcdu.night-mode .lsk.left button::after,
+.mcdu.night-mode .lsk.right button::after{
+  background: #ffcc55;
+  opacity: 1;
+
+  box-shadow:
+    0 0 6px rgba(255,200,80,0.7),
+    0 0 12px rgba(255,200,80,0.35);
+}
+
+.lsk button {
+  font-size: 0;  
+}
+
+.mcdu.night-mode .lsk button::before {
+  background: #ffcc55;
+  box-shadow: 0 0 6px rgba(255,200,80,0.6);
+}
+/* ===============================
+   REMOVE MOBILE TAP / FOCUS HIGHLIGHT
+   =============================== */
+
+button {
+  -webkit-tap-highlight-color: transparent; /* Android blue box remove */
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:focus-visible {
+  outline: none;
+}
+* {
+  -webkit-tap-highlight-color: transparent;
+}
